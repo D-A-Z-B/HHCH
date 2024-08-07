@@ -56,5 +56,8 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "HHCH.sln"
+    "dotnet.defaultSolution": "HHCH.sln",
+    "cSpell.words": [
+        "Cooldown"
+    ]
 }
