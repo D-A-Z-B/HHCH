@@ -1,14 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System;
+using System.Collections;
+using UnityEngine;
 
 public class Agent : MonoBehaviour
 {
-    public IMovement MovementCompo {get; private set;}
-    public Animator AnimatorCompo {get; private set;}
-    public Rigidbody2D RigidCompo {get; private set;}
-    public bool CanStateChangeable {get; private set;} = true;
+    [HideInInspector] public bool isDead = false;
+
+    public IMovement MovementCompo { get; protected set; }
+    public SpriteRenderer SpriteRendererCompo { get; protected set; } 
+    public Animator AnimatorCompo { get; protected set; }
+    public Rigidbody2D RigidCompo { get; protected set; }
+    public Health HealthCompo { get; protected set; }
+
+    public int FacingDirection { get; protected set; } = 1;
+    public bool CanStateChangeable { get; protected set; } = true;
 
     protected virtual void Awake() {
         MovementCompo = GetComponent<IMovement>();
@@ -28,5 +33,36 @@ public class Agent : MonoBehaviour
         yield return new WaitForSeconds(delayTime);
         Callback?.Invoke();
     }
+    #endregion
+
+    #region VelocityControl
+
+    public void SetVelocity(float x, float y, bool doNotFlip = false) {
+        RigidCompo.velocity = new Vector2(x, y);
+
+        if(!doNotFlip) FlipController(x);
+    }
+
+    public void StopImmediately(bool withYAxis) {
+        if(withYAxis) RigidCompo.velocity = Vector2.zero;
+        else RigidCompo.velocity = new Vector2(0, RigidCompo.velocity.y);
+    }
+
+    #endregion
+
+    #region FlipController
+
+    public virtual void Flip() {
+        FacingDirection *= -1;
+        transform.Rotate(0, 180f, 0);
+    }
+
+    public virtual void FlipController(float x) {
+        if(Mathf.Abs(x) < 0.05f) return;
+        
+        if(Mathf.Abs(FacingDirection + Mathf.Sign(x)) < 0.5f)
+            Flip();
+    }
+
     #endregion
 }

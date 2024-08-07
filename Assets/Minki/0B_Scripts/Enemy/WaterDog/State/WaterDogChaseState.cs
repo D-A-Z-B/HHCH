@@ -4,6 +4,6 @@ public class WaterDogChaseState : ChaseState
 
     protected override void Move() {
         _enemy.FlipController(_playerHeadTrm.position.x - _enemy.transform.position.x);
-        _enemy.SetVelocity(_enemy.FacingDirection * _enemy.moveSpeed, _enemy.RigidbodyCompo.velocity.y);
+        _enemy.SetVelocity(_enemy.FacingDirection * _enemy.moveSpeed, _enemy.RigidCompo.velocity.y);
     }
 }

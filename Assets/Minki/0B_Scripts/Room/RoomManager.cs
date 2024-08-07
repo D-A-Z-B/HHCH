@@ -14,11 +14,11 @@ public class RoomManager : MonoSingleton<RoomManager>
 
     private void Awake() {
         _generator.GenerateAll();
-        _inputReader.PlayerInputDisable();
+        _inputReader.Active(ActionMapType.Both, false);
     }
 
     public void GameStart() {
         _generator.ActiveFirstRoom();
-        _inputReader.PlayerInputEnable();
+        _inputReader.Active(ActionMapType.Both, true);
     }
 }

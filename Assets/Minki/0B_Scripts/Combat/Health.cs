@@ -46,7 +46,7 @@ public class Health : MonoBehaviour, IDamageable
             _originMat = _owner.SpriteRendererCompo.material;
         }
         catch {
-            _originMat = PlayerManager.Instance.Player.transform.Find("Torso").GetComponent<SpriteRenderer>().material;
+            _originMat = PlayerManager.Instance.Body.transform.Find("Torso").GetComponent<SpriteRenderer>().material;
         }
     }
 

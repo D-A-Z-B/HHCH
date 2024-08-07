@@ -1,12 +1,10 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static Controls;
 
 public enum ActionMapType {
-    Body, Head,
+    Body, Head, Both
 }
 
 [CreateAssetMenu(menuName = "SO/InputReader")]
@@ -60,6 +58,17 @@ public class InputReader : ScriptableObject, IBodyActions, IHeadActions
                     _controls.Head.Enable();
                 }
                 else {
+                    _controls.Head.Disable();
+                }
+                break;
+            }
+            case ActionMapType.Both: {
+                if (value) {
+                    _controls.Head.Enable();
+                    _controls.Body.Enable();
+                }
+                else {
+                    _controls.Head.Disable();
                     _controls.Head.Disable();
                 }
                 break;

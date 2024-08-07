@@ -21,7 +21,7 @@ public class EnemyState<T> where T : System.Enum
     public virtual void Enter() {
         _endTriggerCalled = false;
         _enemy.AnimatorCompo.SetBool(_animationBoolHash, true);
-        _rigidbody = _enemy.RigidbodyCompo;
+        _rigidbody = _enemy.RigidCompo;
     }
 
     public virtual void Exit() {

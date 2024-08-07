@@ -50,7 +50,7 @@ public class BattleRoom : Room
             foreach(Transform upgradeObject in _upgradeObjects.transform) {
                 vecs[count++] = upgradeObject.position;
             }
-            AbilityManager.Instance.SpawnAbilityObject(vecs, Clear);
+            // AbilityManager.Instance.SpawnAbilityObject(vecs, Clear);
         }
         else Clear();
     }

@@ -1,7 +1,7 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using Cinemachine;
-using System.Collections;
 
 public class Room : MonoBehaviour
 {
@@ -30,7 +30,6 @@ public class Room : MonoBehaviour
     private IEnumerator CameraMoveEndCoroutine() {
         yield return new WaitForSeconds(2f);
 
-        UIManager.Instance.ShowStageLabel(_stageName);
         OnCameraMoveEnd?.Invoke();
     }
 
