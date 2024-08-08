@@ -14,6 +14,7 @@ public class Agent : MonoBehaviour
         MovementCompo = GetComponent<IMovement>();
         AnimatorCompo = GetComponent<Animator>();
         RigidCompo = GetComponent<Rigidbody2D>();
+        RigidCompo.interpolation = RigidbodyInterpolation2D.Interpolate;
         MovementCompo.Initialize(this);
     }
 
@@ -23,10 +24,22 @@ public class Agent : MonoBehaviour
         return StartCoroutine(DelayCoroutine(delayTime, Callback));
     }
 
+    public Coroutine StartDelayCallback(Func<bool> delayAction, Action Callback)
+    {
+        return StartCoroutine(DelayCoroutine(delayAction, Callback));
+    }
+
+
     protected IEnumerator DelayCoroutine(float delayTime, Action Callback)
     {
         yield return new WaitForSeconds(delayTime);
         Callback?.Invoke();
+    }
+
+    protected IEnumerator DelayCoroutine(Func<bool> delayAction, Action callback)
+    {
+        yield return new WaitUntil(() => delayAction.Invoke());
+        callback?.Invoke();
     }
     #endregion
 }

@@ -10,6 +10,7 @@ public class HeadOnBodyState : HeadState
     {
         base.Enter();
         head.InputReader.AttackEvent += HandleAttackEvent;
+        head.transform.eulerAngles = Vector2.zero;
     }
 
     public override void UpdateState()

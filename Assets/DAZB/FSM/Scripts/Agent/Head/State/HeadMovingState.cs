@@ -45,6 +45,11 @@ public class HeadMovingState : HeadState
                 yield break;
             }
 
+            Collider2D checkCollider = head.CollisionCheck();
+            if (checkCollider != null) {
+                
+            }
+
             yield return null;
         }
     }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BodyIdleState : BodyState
+public class BodyIdleState : BodyGroundState
 {
     public BodyIdleState(Body body, BodyStateMachine stateMachine, string boolName) : base(body, stateMachine, boolName)
     {

@@ -19,6 +19,12 @@ public class Body : Agent
     [SerializeField] private InputReader inputReader;
     public InputReader InputReader => inputReader;
 
+    [SerializeField] private BodyStateEnum currentStateEnum;
+    public BodyStateEnum CurrentStateEnum {
+        get => currentStateEnum;
+        set => currentStateEnum = value;
+    }
+
     protected override void Awake() {
         base.Awake();
         StateMachine = new BodyStateMachine();
