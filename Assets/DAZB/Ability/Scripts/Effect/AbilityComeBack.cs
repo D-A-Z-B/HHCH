@@ -13,4 +13,7 @@ public class AbilityComeBack : AbilityEffectSO
             AbilityManager.Instance.ApplyAbility(type);
         }
     }
+    public override void RemoveEffect() {
+
+    }
 }

@@ -22,6 +22,8 @@ public class Head : Agent {
     public Stack<Vector2> ReturnPositionStack = new Stack<Vector2>();
     public InputReader InputReader => inputReader;
 
+    public Action SparkEvent;
+
     private CircleCollider2D collider;
 
     private bool extraMove;
@@ -65,15 +67,28 @@ public class Head : Agent {
 
     private Collider2D[] result = new Collider2D[10];
     public Collider2D CollisionCheck() {
-        int numColliders = Physics2D.OverlapCircleNonAlloc(transform.position, collider.radius, result, ReturnLayer);
+/*         int numColliders = Physics2D.OverlapCircleNonAlloc(transform.position, collider.radius, result, ReturnLayer);
         for (int i = 0; i < numColliders; ++i) {
-/*             if (result[i].gameObject.layer == LayerMask.NameToLayer("Enemy")) {
+             if (result[i].gameObject.layer == LayerMask.NameToLayer("Enemy")) {
                 if (AbilityManager.Instance.GetAppliedAbility(AbilityType.ApShot)) {
                     return false;
                 }
                 return true;
-            } */
+            } 
+            if (result[i].gameObject.layer == LayerMask.NameToLayer("Enemy")) {
+                if (AbilityManager.Instance.GetAppliedAbility(AbilityType.ApShot)) {
+                    return null;
+                }
+                return result[i];
+            }
             if ((ReturnLayer & (1 << result[i].gameObject.layer)) != 0) {
+                return result[i];
+            }
+        }
+        return null; */
+        int numColliders = Physics2D.OverlapCircleNonAlloc(transform.position, collider.radius, result, ReturnLayer);
+        if (numColliders > 0) {
+            for (int i = 0; i < numColliders; ++i) {
                 return result[i];
             }
         }

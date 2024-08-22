@@ -12,17 +12,17 @@ public class HeadReturnState : HeadState
     {
         base.Enter();
         
-        if (AbilityManager.Instance.GetAppliedAbility(AbilityType.Reignite) && AbilityManager.Instance.GetAppliedAbility(AbilityType.ComeBack)) {
+        if (AbilityManager.Instance.IsAppliedAbility(AbilityType.Reignite) && AbilityManager.Instance.IsAppliedAbility(AbilityType.ComeBack)) {
             head.StartDelayCallback(() => Mouse.current.leftButton.wasPressedThisFrame, () => stateMachine.ChangeState(HeadStateEnum.OnBody));
             return;
         }
 
-        if (AbilityManager.Instance.GetAppliedAbility(AbilityType.Reignite)) {
+        if (AbilityManager.Instance.IsAppliedAbility(AbilityType.Reignite)) {
             head.StartDelayCallback(0.3f, () => stateMachine.ChangeState(HeadStateEnum.OnBody));
             return;
         }
 
-        if (AbilityManager.Instance.GetAppliedAbility(AbilityType.ComeBack)) {
+        if (AbilityManager.Instance.IsAppliedAbility(AbilityType.ComeBack)) {
             head.StartDelayCallback(() => Mouse.current.leftButton.wasPressedThisFrame, () => head.StartCoroutine(ReturnRoutine()));
             return;        
         }
