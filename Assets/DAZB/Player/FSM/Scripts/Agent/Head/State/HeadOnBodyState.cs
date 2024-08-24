@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HeadOnBodyState : HeadState
+public class HeadOnBodyState : HeadAliveState
 {
     public HeadOnBodyState(Head head, HeadStateMachine stateMachine, string animBoolName) : base(head, stateMachine, animBoolName)
     {
@@ -9,7 +9,7 @@ public class HeadOnBodyState : HeadState
     public override void Enter()
     {
         base.Enter();
-        head.InputReader.AttackEvent += HandleAttackEvent;
+        head.InputReader.MovingEvent += HandleAttackEvent;
         head.transform.eulerAngles = Vector2.zero;
     }
 
@@ -21,7 +21,7 @@ public class HeadOnBodyState : HeadState
 
     public override void Exit()
     {
-        head.InputReader.AttackEvent -= HandleAttackEvent;
+        head.InputReader.MovingEvent -= HandleAttackEvent;
         base.Exit();
     }
 

@@ -98,9 +98,18 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             ""id"": ""9fc1908a-b844-4e7a-86cf-478bca4a1a29"",
             ""actions"": [
                 {
-                    ""name"": ""Attack"",
+                    ""name"": ""Moving"",
                     ""type"": ""Button"",
                     ""id"": ""0228b341-2ba1-42b5-8dcf-a550928142ed"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SubAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""016349cd-4f78-418e-9e71-7fef6533ba3f"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -115,7 +124,18 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Attack"",
+                    ""action"": ""Moving"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6b930e8a-89d2-4174-9c74-176071837635"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SubAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -147,7 +167,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Body_Jump = m_Body.FindAction("Jump", throwIfNotFound: true);
         // Head
         m_Head = asset.FindActionMap("Head", throwIfNotFound: true);
-        m_Head_Attack = m_Head.FindAction("Attack", throwIfNotFound: true);
+        m_Head_Moving = m_Head.FindAction("Moving", throwIfNotFound: true);
+        m_Head_SubAttack = m_Head.FindAction("SubAttack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -263,12 +284,14 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     // Head
     private readonly InputActionMap m_Head;
     private List<IHeadActions> m_HeadActionsCallbackInterfaces = new List<IHeadActions>();
-    private readonly InputAction m_Head_Attack;
+    private readonly InputAction m_Head_Moving;
+    private readonly InputAction m_Head_SubAttack;
     public struct HeadActions
     {
         private @Controls m_Wrapper;
         public HeadActions(@Controls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Attack => m_Wrapper.m_Head_Attack;
+        public InputAction @Moving => m_Wrapper.m_Head_Moving;
+        public InputAction @SubAttack => m_Wrapper.m_Head_SubAttack;
         public InputActionMap Get() { return m_Wrapper.m_Head; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -278,16 +301,22 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_HeadActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_HeadActionsCallbackInterfaces.Add(instance);
-            @Attack.started += instance.OnAttack;
-            @Attack.performed += instance.OnAttack;
-            @Attack.canceled += instance.OnAttack;
+            @Moving.started += instance.OnMoving;
+            @Moving.performed += instance.OnMoving;
+            @Moving.canceled += instance.OnMoving;
+            @SubAttack.started += instance.OnSubAttack;
+            @SubAttack.performed += instance.OnSubAttack;
+            @SubAttack.canceled += instance.OnSubAttack;
         }
 
         private void UnregisterCallbacks(IHeadActions instance)
         {
-            @Attack.started -= instance.OnAttack;
-            @Attack.performed -= instance.OnAttack;
-            @Attack.canceled -= instance.OnAttack;
+            @Moving.started -= instance.OnMoving;
+            @Moving.performed -= instance.OnMoving;
+            @Moving.canceled -= instance.OnMoving;
+            @SubAttack.started -= instance.OnSubAttack;
+            @SubAttack.performed -= instance.OnSubAttack;
+            @SubAttack.canceled -= instance.OnSubAttack;
         }
 
         public void RemoveCallbacks(IHeadActions instance)
@@ -321,6 +350,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     }
     public interface IHeadActions
     {
-        void OnAttack(InputAction.CallbackContext context);
+        void OnMoving(InputAction.CallbackContext context);
+        void OnSubAttack(InputAction.CallbackContext context);
     }
 }

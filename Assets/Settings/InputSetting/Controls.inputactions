@@ -76,9 +76,18 @@
             "id": "9fc1908a-b844-4e7a-86cf-478bca4a1a29",
             "actions": [
                 {
-                    "name": "Attack",
+                    "name": "Moving",
                     "type": "Button",
                     "id": "0228b341-2ba1-42b5-8dcf-a550928142ed",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SubAttack",
+                    "type": "Button",
+                    "id": "016349cd-4f78-418e-9e71-7fef6533ba3f",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -93,7 +102,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Attack",
+                    "action": "Moving",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6b930e8a-89d2-4174-9c74-176071837635",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SubAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

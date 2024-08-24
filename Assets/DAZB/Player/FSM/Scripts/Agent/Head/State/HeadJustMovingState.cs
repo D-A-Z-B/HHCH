@@ -2,7 +2,7 @@ using System.Collections;
 using System.Security.Cryptography;
 using UnityEngine;
 
-public class HeadJustMovingState : HeadState
+public class HeadJustMovingState : HeadAliveState
 {
     public HeadJustMovingState(Head head, HeadStateMachine stateMachine, string animBoolName) : base(head, stateMachine, animBoolName)
     {
@@ -13,7 +13,7 @@ public class HeadJustMovingState : HeadState
     {
         base.Enter();
 
-        head.InputReader.AttackEvent += HandleAttackEvent;
+        head.InputReader.MovingEvent += HandleMovingEvent;
 
         coroutine = head.StartCoroutine(Routine());
     }
@@ -21,7 +21,7 @@ public class HeadJustMovingState : HeadState
     public override void Exit()
     {
         head.StopCoroutine(coroutine);
-        head.InputReader.AttackEvent -= HandleAttackEvent;
+        head.InputReader.MovingEvent -= HandleMovingEvent;
         base.Exit();
     }
 
@@ -36,7 +36,7 @@ public class HeadJustMovingState : HeadState
         }
     }
 
-    private void HandleAttackEvent() {
+    private void HandleMovingEvent() {
         head.ExtraMove = true;
         Time.timeScale = 1f;
         stateMachine.ChangeState(HeadStateEnum.Moving);

@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class HeadMovingState : HeadState
+public class HeadMovingState : HeadAliveState
 {
     public HeadMovingState(Head head, HeadStateMachine stateMachine, string animBoolName) : base(head, stateMachine, animBoolName)
     {
