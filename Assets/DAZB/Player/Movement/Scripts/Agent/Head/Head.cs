@@ -26,6 +26,10 @@ public class Head : Agent {
 
     private CircleCollider2D collider;
 
+    #region Component
+    public SpecialAttackExecutor SpecialAttackExecutorCompo {get; private set;}
+    #endregion
+
     private bool extraMove;
     public bool ExtraMove {
         get => extraMove;
@@ -55,6 +59,7 @@ public class Head : Agent {
             }
         }
         collider = GetComponent<CircleCollider2D>();
+        SpecialAttackExecutorCompo = GetComponent<SpecialAttackExecutor>();
     }
 
     protected void Start() {

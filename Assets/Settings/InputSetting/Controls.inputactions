@@ -85,7 +85,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SubAttack",
+                    "name": "SpecialAttack",
                     "type": "Button",
                     "id": "016349cd-4f78-418e-9e71-7fef6533ba3f",
                     "expectedControlType": "Button",
@@ -109,11 +109,11 @@
                 {
                     "name": "",
                     "id": "6b930e8a-89d2-4174-9c74-176071837635",
-                    "path": "<Mouse>/leftButton",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SubAttack",
+                    "action": "SpecialAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

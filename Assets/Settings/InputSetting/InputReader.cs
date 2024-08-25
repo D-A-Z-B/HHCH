@@ -22,7 +22,7 @@ public class InputReader : ScriptableObject, IBodyActions, IHeadActions
 #region Head
 
     public Action MovingEvent;
-    public Action SubAttackEvent;
+    public Action SpecialAttackEvent;
 
 #endregion
     
@@ -87,9 +87,9 @@ public class InputReader : ScriptableObject, IBodyActions, IHeadActions
         }
     }
 
-    public void OnSubAttack(InputAction.CallbackContext context) {
+    public void OnSpecialAttack(InputAction.CallbackContext context) {
         if (context.performed) {
-            SubAttackEvent?.Invoke();
+            SpecialAttackEvent?.Invoke();
         }
     }
 
@@ -100,5 +100,5 @@ public class InputReader : ScriptableObject, IBodyActions, IHeadActions
         }
     }
 
-#endregion
+    #endregion
 }

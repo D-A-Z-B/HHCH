@@ -107,7 +107,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""SubAttack"",
+                    ""name"": ""SpecialAttack"",
                     ""type"": ""Button"",
                     ""id"": ""016349cd-4f78-418e-9e71-7fef6533ba3f"",
                     ""expectedControlType"": ""Button"",
@@ -131,11 +131,11 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""6b930e8a-89d2-4174-9c74-176071837635"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""SubAttack"",
+                    ""action"": ""SpecialAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -168,7 +168,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         // Head
         m_Head = asset.FindActionMap("Head", throwIfNotFound: true);
         m_Head_Moving = m_Head.FindAction("Moving", throwIfNotFound: true);
-        m_Head_SubAttack = m_Head.FindAction("SubAttack", throwIfNotFound: true);
+        m_Head_SpecialAttack = m_Head.FindAction("SpecialAttack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -285,13 +285,13 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Head;
     private List<IHeadActions> m_HeadActionsCallbackInterfaces = new List<IHeadActions>();
     private readonly InputAction m_Head_Moving;
-    private readonly InputAction m_Head_SubAttack;
+    private readonly InputAction m_Head_SpecialAttack;
     public struct HeadActions
     {
         private @Controls m_Wrapper;
         public HeadActions(@Controls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Moving => m_Wrapper.m_Head_Moving;
-        public InputAction @SubAttack => m_Wrapper.m_Head_SubAttack;
+        public InputAction @SpecialAttack => m_Wrapper.m_Head_SpecialAttack;
         public InputActionMap Get() { return m_Wrapper.m_Head; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -304,9 +304,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Moving.started += instance.OnMoving;
             @Moving.performed += instance.OnMoving;
             @Moving.canceled += instance.OnMoving;
-            @SubAttack.started += instance.OnSubAttack;
-            @SubAttack.performed += instance.OnSubAttack;
-            @SubAttack.canceled += instance.OnSubAttack;
+            @SpecialAttack.started += instance.OnSpecialAttack;
+            @SpecialAttack.performed += instance.OnSpecialAttack;
+            @SpecialAttack.canceled += instance.OnSpecialAttack;
         }
 
         private void UnregisterCallbacks(IHeadActions instance)
@@ -314,9 +314,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Moving.started -= instance.OnMoving;
             @Moving.performed -= instance.OnMoving;
             @Moving.canceled -= instance.OnMoving;
-            @SubAttack.started -= instance.OnSubAttack;
-            @SubAttack.performed -= instance.OnSubAttack;
-            @SubAttack.canceled -= instance.OnSubAttack;
+            @SpecialAttack.started -= instance.OnSpecialAttack;
+            @SpecialAttack.performed -= instance.OnSpecialAttack;
+            @SpecialAttack.canceled -= instance.OnSpecialAttack;
         }
 
         public void RemoveCallbacks(IHeadActions instance)
@@ -351,6 +351,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     public interface IHeadActions
     {
         void OnMoving(InputAction.CallbackContext context);
-        void OnSubAttack(InputAction.CallbackContext context);
+        void OnSpecialAttack(InputAction.CallbackContext context);
     }
 }

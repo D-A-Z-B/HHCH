@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class HeadAliveState : HeadState
@@ -8,10 +9,15 @@ public class HeadAliveState : HeadState
 
     public override void Enter() {
         base.Enter();
-        
+        head.InputReader.SpecialAttackEvent += HandleSpecialAttackEvent;
     }
 
     public override void Exit() {
+        head.InputReader.SpecialAttackEvent -= HandleSpecialAttackEvent;
         base.Exit();
+    }
+
+    private void HandleSpecialAttackEvent() {
+        head.SpecialAttackExecutorCompo.Execute();
     }
 }

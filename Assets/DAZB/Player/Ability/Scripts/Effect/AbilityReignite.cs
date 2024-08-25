@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "SO/Ability/Reignite")]
-public class AbilityReigniteSO : AbilityEffectSO
+public class AbilityReignite : AbilityEffectSO
 {
     private void OnValidate() {
         type = AbilityType.Reignite;
