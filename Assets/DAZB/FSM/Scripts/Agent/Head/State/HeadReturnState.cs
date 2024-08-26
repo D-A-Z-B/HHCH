@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class HeadReturnState : HeadState
 {
@@ -10,7 +11,23 @@ public class HeadReturnState : HeadState
     public override void Enter()
     {
         base.Enter();
-        head.StartCoroutine(ReturnRoutine());
+        
+        if (AbilityManager.Instance.IsAppliedAbility(AbilityType.Reignite) && AbilityManager.Instance.IsAppliedAbility(AbilityType.ComeBack)) {
+            head.StartDelayCallback(() => Mouse.current.leftButton.wasPressedThisFrame, () => stateMachine.ChangeState(HeadStateEnum.OnBody));
+            return;
+        }
+
+        if (AbilityManager.Instance.IsAppliedAbility(AbilityType.Reignite)) {
+            head.StartDelayCallback(0.3f, () => stateMachine.ChangeState(HeadStateEnum.OnBody));
+            return;
+        }
+
+        if (AbilityManager.Instance.IsAppliedAbility(AbilityType.ComeBack)) {
+            head.StartDelayCallback(() => Mouse.current.leftButton.wasPressedThisFrame, () => head.StartCoroutine(ReturnRoutine()));
+            return;        
+        }
+
+        head.StartDelayCallback(0.3f, () => head.StartCoroutine(ReturnRoutine()));
     }
 
     private IEnumerator ReturnRoutine() {
@@ -25,7 +42,8 @@ public class HeadReturnState : HeadState
                 elapsedTime += Time.deltaTime;
                 if (head.ReturnPositionStack.Count == 0) {
                     endPos = PlayerManager.Instance.Body.transform.position + new Vector3(0, 1, 0);
-                }
+                }   
+
                 head.transform.position = Vector2.Lerp(startPos, endPos, elapsedTime / duration);
                 yield return null;
             }

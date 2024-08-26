@@ -45,6 +45,15 @@ public class HeadMovingState : HeadState
                 yield break;
             }
 
+            Collider2D checkCollider = head.CollisionCheck();
+            if (checkCollider != null) {
+                if (AbilityManager.Instance.IsAppliedAbility(AbilityType.Spark) && checkCollider.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
+                    head.SparkEvent?.Invoke();
+                }
+                stateMachine.ChangeState(HeadStateEnum.Return);
+                yield break;
+            }
+
             yield return null;
         }
     }

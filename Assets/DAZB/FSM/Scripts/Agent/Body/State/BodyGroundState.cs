@@ -16,17 +16,18 @@ public class BodyGroundState : BodyState
     {
         base.UpdateState();
         if (body.RigidCompo.velocity.y < 0) {
-            
+            stateMachine.ChangeState(BodyStateEnum.Fall);
         }
     }
 
     public override void Exit()
     {
-        body.InputReader.JumpEvent += HandleJumpEvent;
+        body.InputReader.JumpEvent -= HandleJumpEvent;
         base.Exit();
     }
 
     private void HandleJumpEvent() {
+        if (!(body.MovementCompo as AgentMovement).IsGround) return;
         stateMachine.ChangeState(BodyStateEnum.Jump);
     }
 }

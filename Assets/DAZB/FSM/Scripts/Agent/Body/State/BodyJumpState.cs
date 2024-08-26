@@ -10,6 +10,7 @@ public class BodyJumpState : BodyState
     {
         base.Enter();
         Jump();
+        stateMachine.ChangeState(BodyStateEnum.Idle);
     }
 
     private void Jump() {
