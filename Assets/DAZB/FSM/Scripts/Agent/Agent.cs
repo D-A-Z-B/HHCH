@@ -20,7 +20,7 @@ public class Agent : MonoBehaviour
         AnimatorCompo = GetComponent<Animator>();
         RigidCompo = GetComponent<Rigidbody2D>();
         RigidCompo.interpolation = RigidbodyInterpolation2D.Interpolate;
-        MovementCompo.Initialize(this);
+        MovementCompo?.Initialize(this);
     }
 
     #region Delay callback coroutine

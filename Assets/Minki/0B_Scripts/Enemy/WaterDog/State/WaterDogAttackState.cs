@@ -4,20 +4,46 @@ public class WaterDogAttackState : AttackState
 {
     public WaterDogAttackState(Enemy enemy, EnemyStateMachine<EnemyStateEnum> stateMachine, string animationBoolName) : base(enemy, stateMachine, animationBoolName) { }
 
-    private Transform _playerHeadTrm;
+    private float _moveX, _moveY;
+    private float _timer = 0f, _jumpTime;
+    private float _yRotation;
+    private Vector3 _startPos;
 
     public override void Enter() {
         base.Enter();
 
-        _playerHeadTrm = PlayerManager.Instance.Head.transform;
+        _enemy.StopImmediately(false);
 
-        Vector2 direction = _playerHeadTrm.position - _enemy.transform.position;
-        direction += Vector2.up * 5f;
+        _moveX = Mathf.Abs(PlayerManager.Instance.Head.transform.position.x - _enemy.transform.position.x);
+        _moveY = Mathf.Abs(PlayerManager.Instance.Head.transform.position.y - _enemy.transform.position.y);
 
-        direction.Normalize();
+        _timer = 0.05f;
+        _jumpTime = (_enemy as WaterDog).attackTime;
+        _yRotation = _enemy.FacingDirection * 90f - 90;
 
-        _enemy.RigidCompo.AddForce(direction * 7.5f, ForceMode2D.Impulse);
+        _startPos = _enemy.transform.position;
+        _startPos.x += _moveX * _enemy.FacingDirection;
+    }
 
-        _enemy.StartDelayCallback(3f, () => _stateMachine.ChangeState(EnemyStateEnum.Chase));
+    public override void UpdateState() {
+        _timer += Time.deltaTime;
+
+        float percent = _timer / _jumpTime;
+        percent = EaseInOutCubic(percent);
+
+        float percentMulPI = percent * Mathf.PI;
+        Vector3 direction = new Vector3(Mathf.Cos(percentMulPI) * _moveX * -_enemy.FacingDirection, Mathf.Sin(percentMulPI) * _moveY);
+
+        _enemy.transform.position = _startPos + direction;
+        _enemy.transform.rotation = Quaternion.Euler(0, _yRotation, (percent * 2 - 1) * -90f);
+        
+        if(percent >= 0.85f) {
+            _stateMachine.ChangeState(EnemyStateEnum.Chase);
+            _enemy.transform.rotation = Quaternion.Euler(0, _yRotation, 0);
+        }
+    }
+
+    private float EaseInOutCubic(float x) {
+        return x == 0 ? 0 : x == 1 ? 1 : x < 0.5 ? Mathf.Pow(2, 20 * x - 10) / 2 : (2 - Mathf.Pow(2, -20 * x + 10)) / 2;
     }
 }

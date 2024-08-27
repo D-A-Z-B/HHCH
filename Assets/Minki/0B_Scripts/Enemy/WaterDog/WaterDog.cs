@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class WaterDog : Enemy
 {
+    public float attackTime = 0.7f;
+
     protected override void Awake() {
         base.Awake();
 
