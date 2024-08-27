@@ -9,6 +9,7 @@ public class Agent : MonoBehaviour
     public Animator AnimatorCompo {get; private set;}
     public Rigidbody2D RigidCompo {get; private set;}
     public bool CanStateChangeable {get; private set;} = true;
+    public AgentStat stat;
 
     protected virtual void Awake() {
         MovementCompo = GetComponent<IMovement>();
@@ -16,6 +17,8 @@ public class Agent : MonoBehaviour
         RigidCompo = GetComponent<Rigidbody2D>();
         RigidCompo.interpolation = RigidbodyInterpolation2D.Interpolate;
         MovementCompo.Initialize(this);
+        stat = Instantiate(stat);
+        stat.SetOwner(this);
     }
 
     #region Delay callback coroutine

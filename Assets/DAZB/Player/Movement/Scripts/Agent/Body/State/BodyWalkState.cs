@@ -25,7 +25,7 @@ public class BodyWalkState : BodyGroundState
             body.StateMachine.ChangeState(BodyStateEnum.Idle);
         }
         else {
-            (body.MovementCompo as AgentMovement).SetMovement(body.InputReader.Movement * body.moveSpeed);
+            (body.MovementCompo as AgentMovement).SetMovement(body.InputReader.Movement * body.MoveSpeed);
         }
     }
 }

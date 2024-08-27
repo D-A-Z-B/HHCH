@@ -16,6 +16,6 @@ public class BodyFallState : BodyState
     }
 
     private void Move() {
-        (body.MovementCompo as AgentMovement).SetMovement(body.InputReader.Movement * body.moveSpeed);
+        (body.MovementCompo as AgentMovement).SetMovement(body.InputReader.Movement * body.MoveSpeed);
     }
 }

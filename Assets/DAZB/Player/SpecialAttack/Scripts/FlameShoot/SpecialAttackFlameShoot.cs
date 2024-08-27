@@ -11,7 +11,14 @@ public class SpecialAttackFlameShoot : SpecialAttackSO
     }
 
     public override bool CanUseSpecialAttack() {
-        return true;
+        if (isFirst) { isFirst = false; return true; }
+
+        if (lastAttackTime + Cooldown <= Time.time) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     public override void UseSpecialAttack() {

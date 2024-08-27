@@ -12,12 +12,17 @@ public enum BodyStateEnum {
 
 public class Body : Agent
 {
-    [Header("Setting Values")]
-    public float moveSpeed;
+    [Header("Setting Value")]
+    private float moveSpeed;
+    public float MoveSpeed => moveSpeed;
+
     public float jumpPower;
+    
     public BodyStateMachine StateMachine {get; protected set;}
     [SerializeField] private InputReader inputReader;
     public InputReader InputReader => inputReader;
+
+    
 
     [SerializeField] private BodyStateEnum currentStateEnum;
     public BodyStateEnum CurrentStateEnum {
@@ -40,6 +45,12 @@ public class Body : Agent
                 Debug.LogError(ex.Message);
             }
         }
+        StatInit();
+    }
+
+    private void StatInit() {
+        PlayerStat stat = this.stat as PlayerStat;
+        moveSpeed = stat.moveSpeed.GetValue();
     }
 
     protected void Start() {

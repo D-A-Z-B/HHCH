@@ -11,10 +11,15 @@ public enum HeadStateEnum {
 
 public class Head : Agent {
     [Header("Setting Value")]
-    public float AttackSpeed;
-    public float ReturnSpeed;
+    private float attackSpeed;
+    public float AttackSpeed => attackSpeed;
+    private float returnSpeed;
+    public float ReturnSpeed => returnSpeed;
+    private float attackCooldown;
+    public float AttackCooldown => attackCooldown;
+    private int att;
+    public int Att => att;
     public float NeckLength;
-    public float AttackCooldown;
     public LayerMask ReturnLayer;
     [HideInInspector] public float lastAttackTime;
     public HeadStateMachine StateMachine {get; private set;}
@@ -60,6 +65,15 @@ public class Head : Agent {
         }
         collider = GetComponent<CircleCollider2D>();
         SpecialAttackExecutorCompo = GetComponent<SpecialAttackExecutor>();
+        StatInit();
+    }
+
+    private void StatInit() {
+        PlayerStat stat = this.stat as PlayerStat;
+        attackSpeed = stat.shootSpeed.GetValue();
+        returnSpeed = stat.returnSpeed.GetValue();
+        attackCooldown = stat.attackCooldown.GetValue();
+        att = stat.att.GetValue();
     }
 
     protected void Start() {

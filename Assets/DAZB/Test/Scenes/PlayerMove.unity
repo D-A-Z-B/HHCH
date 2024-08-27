@@ -709,7 +709,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de560046192e9b74c8f3c1e2a644a553, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  stat: {fileID: 11400000, guid: 2395bdfc82092ca48a38fdcc7fe97d2a, type: 2}
   jumpPower: 12
   inputReader: {fileID: 11400000, guid: 566d16e48c1140b4b9b7f3eb0faf8694, type: 2}
   currentStateEnum: 0
@@ -1145,10 +1145,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6835afad96050d44e9a83963e264adfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackSpeed: 3
-  ReturnSpeed: 3
+  stat: {fileID: 11400000, guid: 2395bdfc82092ca48a38fdcc7fe97d2a, type: 2}
   NeckLength: 5
-  AttackCooldown: 1
   ReturnLayer:
     serializedVersion: 2
     m_Bits: 320
