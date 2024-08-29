@@ -1,3 +1,3 @@
 public enum AbilityType {
-    Reignite, ComeBack, ApShot, Spark
+    None, Reignite, ComeBack, ApShot, Spark
 }

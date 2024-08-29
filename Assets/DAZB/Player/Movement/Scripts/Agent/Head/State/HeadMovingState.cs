@@ -50,6 +50,10 @@ public class HeadMovingState : HeadAliveState
                 if (AbilityManager.Instance.IsAppliedAbility(AbilityType.Spark) && checkCollider.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
                     head.SparkEvent?.Invoke();
                 }
+
+                if (checkCollider.TryGetComponent<FieldItem>(out FieldItem item)) {
+                    item.Interact();
+                }
                 stateMachine.ChangeState(HeadStateEnum.Return);
                 yield break;
             }

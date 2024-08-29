@@ -8,13 +8,18 @@ public class Agent : MonoBehaviour
     public IMovement MovementCompo {get; private set;}
     public Animator AnimatorCompo {get; private set;}
     public Rigidbody2D RigidCompo {get; private set;}
+    public IDamageable HealthCompo {get; private set;}
     public bool CanStateChangeable {get; private set;} = true;
     public AgentStat stat;
+
+    [HideInInspector] public bool isDead;
 
     protected virtual void Awake() {
         MovementCompo = GetComponent<IMovement>();
         AnimatorCompo = GetComponent<Animator>();
         RigidCompo = GetComponent<Rigidbody2D>();
+        HealthCompo = GetComponent<IDamageable>();
+        
         RigidCompo.interpolation = RigidbodyInterpolation2D.Interpolate;
         MovementCompo.Initialize(this);
         stat = Instantiate(stat);
