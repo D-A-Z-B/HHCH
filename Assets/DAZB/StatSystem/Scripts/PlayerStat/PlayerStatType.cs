@@ -1,3 +1,3 @@
 public enum PlayerStatType {
-    Att, Health, ShootSpeed, ReturnSpeed, AttackCooldown, MoveSpeed,
+    Att, Health, ShootSpeed, ReturnSpeed, AttackCooldown, AttackRange, MoveSpeed,
 }

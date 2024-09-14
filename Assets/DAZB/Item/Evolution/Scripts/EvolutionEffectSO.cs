@@ -1,6 +1,10 @@
 using UnityEngine;
 
 public abstract class EvolutionEffectSO : ScriptableObject {
+    public bool AlreadyApplied = false;
+
     public abstract void ApplyEffect();
-    public abstract void RemoveEffect();
+    public virtual void RemoveEffect() {
+        AlreadyApplied = false;
+    }
 }

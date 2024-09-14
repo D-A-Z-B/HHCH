@@ -14,8 +14,4 @@ public class AbilityApShot : AbilityEffectSO
             AbilityManager.Instance.ApplyAbility(type);
         }
     }
-
-    public override void RemoveEffect() {
-
-    }
 }

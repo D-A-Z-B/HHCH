@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed1c54c3ff05407428b5c71235d54df3, type: 3}
-  m_Name: FlameShoot
+  m_Script: {fileID: 11500000, guid: 032a03e0d84b61e4ab253018a425e7e3, type: 3}
+  m_Name: TestAbilityItem 1
   m_EditorClassIdentifier: 
-  type: 0
-  Cooldown: 10
-  FlamePrefab: {fileID: 3645931680854498775, guid: a02fb811bcecf9f4b84bce7cc917ca30, type: 3}
-  AppliedSpeedPercent: 100
+  TempItemRegister: {fileID: 0}
+  effectSO: {fileID: 11400000, guid: 162527a10550704469e93fb9eea94e1b, type: 2}

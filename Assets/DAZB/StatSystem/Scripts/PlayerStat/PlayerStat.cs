@@ -10,6 +10,7 @@ public class PlayerStat : AgentStat
     public Stat health;
     public Stat shootSpeed;
     public Stat returnSpeed;
+    public Stat attackRange;
     public Stat attackCooldown;
     public Stat moveSpeed;
 

@@ -5,8 +5,8 @@ using UnityEngine;
 public enum HeadStateEnum {
     OnBody,
     Moving,
-    JustMoving,
     Return,
+    Charging,
 }
 
 public class Head : Agent {
@@ -26,6 +26,9 @@ public class Head : Agent {
     [SerializeField] private InputReader inputReader;
     public Stack<Vector2> ReturnPositionStack = new Stack<Vector2>();
     public InputReader InputReader => inputReader;
+
+    [Header("Charing Data")]
+    public PlayerChargingData ChargingData = new PlayerChargingData();
 
     public Action SparkEvent;
 
@@ -65,6 +68,7 @@ public class Head : Agent {
         }
         collider = GetComponent<CircleCollider2D>();
         SpecialAttackExecutorCompo = GetComponent<SpecialAttackExecutor>();
+        ChargingData.Init(this);
         StatInit();
     }
 
@@ -73,6 +77,7 @@ public class Head : Agent {
         attackSpeed = stat.shootSpeed.GetValue();
         returnSpeed = stat.returnSpeed.GetValue();
         attackCooldown = stat.attackCooldown.GetValue();
+        NeckLength = stat.attackRange.GetValue();
         att = stat.att.GetValue();
     }
 

@@ -15,8 +15,4 @@ public class AbilityReignite : AbilityEffectSO
             AbilityManager.Instance.ApplyAbility(type);
         }
     }
-
-    public override void RemoveEffect() {
-
-    }
 }

@@ -6,7 +6,7 @@ public class AbilityManager : MonoSingleton<AbilityManager> {
     private Dictionary<AbilityType, bool> AppliedAbilityDictionary = new Dictionary<AbilityType, bool>();
     private Dictionary<AbilityType, AbilityEffectSO> AbilityDictionary = new Dictionary<AbilityType, AbilityEffectSO>();
 
-    private AbilityType tempAbilityType;
+    private AbilityType tempAbilityType = AbilityType.None;
 
     private void Awake() {
         foreach (AbilityEffectSO effect in AbilityEffectSOList) {
@@ -28,10 +28,15 @@ public class AbilityManager : MonoSingleton<AbilityManager> {
     public void ApplyAbility(AbilityType type, bool isTemp = false) {
         if (isTemp) {
             tempAbilityType = type;
+            if (IsAppliedAbility(type)) return;
+            AbilityDictionary[type].ApplyEffect();
+        }
+        if (IsAppliedAbility(type)) {
+            return;
         }
         AppliedAbilityDictionary[type] = true;
-        AbilityDictionary[type].ApplyEffect();
     }
+    
 
     public void RemoveAbility(AbilityType type) {
         AppliedAbilityDictionary[type] = false;
@@ -45,6 +50,16 @@ public class AbilityManager : MonoSingleton<AbilityManager> {
     }
 
     public bool IsAppliedAbility(AbilityType type) {
+        return AppliedAbilityDictionary[type];
+    }
+
+    public bool IsAppliedAbility(AbilityType type, out AbilityEffectSO so) {
+        if (AppliedAbilityDictionary[type]) {
+            so = AbilityDictionary[type];
+        }
+        else {
+            so = null;
+        }
         return AppliedAbilityDictionary[type];
     }
 }

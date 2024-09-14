@@ -28,6 +28,10 @@ MonoBehaviour:
     baseValue: 10
     modifiers: 
     isPercent: 0
+  attackRange:
+    baseValue: 7
+    modifiers: 
+    isPercent: 0
   attackCooldown:
     baseValue: 1
     modifiers: 

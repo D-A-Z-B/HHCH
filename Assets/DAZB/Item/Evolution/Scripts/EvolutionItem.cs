@@ -15,6 +15,5 @@ public class EvolutionItem : Item
     public override void TempItemApply() {
         EvolutionManager.Instance.RemoveTempEvolution();
         EvolutionManager.Instance.ApplyEvolution(this, true);
-        effectSO.ApplyEffect();
     }
 }

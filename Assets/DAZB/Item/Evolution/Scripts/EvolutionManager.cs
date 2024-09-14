@@ -14,6 +14,7 @@ public class EvolutionManager : MonoSingleton<EvolutionManager> {
         else {
             currentEvolution = item;
         }
+        item.effectSO.ApplyEffect();
         appliedEvolutionList.Add(item);
     }
 
@@ -35,6 +36,7 @@ public class EvolutionManager : MonoSingleton<EvolutionManager> {
             if (iter.evolutionName == tempEvolution.evolutionName) {
                 tempEvolution = null;
                 appliedEvolutionList.Remove(iter);
+                iter.effectSO.RemoveEffect();
                 return;
             }
         }
@@ -50,6 +52,17 @@ public class EvolutionManager : MonoSingleton<EvolutionManager> {
                 return true;
             }
         }
+        return false;
+    }
+
+    public bool IsAppliedEvolution(string evolutionName, out EvolutionEffectSO so) {
+        foreach (EvolutionItem item in appliedEvolutionList) {
+            if (item.evolutionName == evolutionName) {
+                so = item.effectSO;
+                return true;
+            }
+        }
+        so = null;
         return false;
     }
 }

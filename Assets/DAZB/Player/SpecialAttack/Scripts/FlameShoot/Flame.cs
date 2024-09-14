@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Flame : MonoBehaviour {
@@ -8,8 +9,13 @@ public class Flame : MonoBehaviour {
         rigid = GetComponent<Rigidbody2D>();
     }
 
-    public void Shoot(Vector2 dir, float power) {
-        rigid.AddForce(dir * power, ForceMode2D.Impulse);
+    private Coroutine coroutine;
+    public void Shoot(float power) {
+        coroutine = StartCoroutine(ShootRoutine(power));
+    }
+
+    public IEnumerator ShootRoutine(float power) {
+        yield return null;
     }
 
     private void OnTriggerEnter2D(Collider2D other) {

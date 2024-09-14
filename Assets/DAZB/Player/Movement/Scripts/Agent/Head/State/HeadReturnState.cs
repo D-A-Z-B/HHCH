@@ -11,20 +11,29 @@ public class HeadReturnState : HeadAliveState
     public override void Enter()
     {
         base.Enter();
+
+        if (AbilityManager.Instance.IsAppliedAbility(AbilityType.ComeBack, out AbilityEffectSO so)) {
+            AbilityComeBack comebackSO = so as AbilityComeBack;
+            if (comebackSO.IsAppliedThisTime) {
+                head.StartCoroutine(ReturnRoutine());
+                comebackSO.IsAppliedThisTime = false;
+                return;
+            }
+        }
         
         if (AbilityManager.Instance.IsAppliedAbility(AbilityType.Reignite) && AbilityManager.Instance.IsAppliedAbility(AbilityType.ComeBack)) {
             head.StartDelayCallback(() => Mouse.current.leftButton.wasPressedThisFrame, () => stateMachine.ChangeState(HeadStateEnum.OnBody));
             return;
         }
 
-        if (AbilityManager.Instance.IsAppliedAbility(AbilityType.Reignite)) {
-            head.StartDelayCallback(0.3f, () => stateMachine.ChangeState(HeadStateEnum.OnBody));
-            return;
-        }
-
         if (AbilityManager.Instance.IsAppliedAbility(AbilityType.ComeBack)) {
             head.StartDelayCallback(() => Mouse.current.leftButton.wasPressedThisFrame, () => head.StartCoroutine(ReturnRoutine()));
             return;        
+        }
+
+        if (AbilityManager.Instance.IsAppliedAbility(AbilityType.Reignite)) {
+            head.StartDelayCallback(0.3f, () => stateMachine.ChangeState(HeadStateEnum.OnBody));
+            return;
         }
 
         head.StartDelayCallback(0.3f, () => head.StartCoroutine(ReturnRoutine()));

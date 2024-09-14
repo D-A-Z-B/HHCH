@@ -6,12 +6,17 @@ public class HeadMovingState : HeadAliveState
     public HeadMovingState(Head head, HeadStateMachine stateMachine, string animBoolName) : base(head, stateMachine, animBoolName)
     {
     }
+    
     Vector2 startPos;
     Vector2 mousePos;
 
     public override void Enter()
     {
         base.Enter();
+        if (EvolutionManager.Instance.IsAppliedEvolution("Charging") && head.ChargingData.isFinish == false) {
+            stateMachine.ChangeState(HeadStateEnum.Charging);
+            return;
+        }
         head.ReturnPositionStack.Push(head.transform.position);
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         startPos = head.transform.position;
@@ -20,11 +25,11 @@ public class HeadMovingState : HeadAliveState
 
     private IEnumerator MoveRoutine() {
         float elapsedTime = 0f;
-        float duration = 1f / head.AttackSpeed;
+        float duration = 1f / head.ChargingData.currentAttackSpeed;
         Vector2 targetPos = mousePos;
 
         if (Vector2.Distance(startPos, mousePos) > head.NeckLength) {
-            targetPos = startPos + (mousePos - startPos).normalized * head.NeckLength;
+            targetPos = startPos + (mousePos - startPos).normalized * head.ChargingData.currentAttackRange;
         }
 
         while (elapsedTime < duration) {
@@ -36,11 +41,6 @@ public class HeadMovingState : HeadAliveState
             elapsedTime += Time.deltaTime;
 
             if (Vector2.Distance(head.transform.position, targetPos) <= 0.1f) {
-
-                if (JustMovingCheck() && !head.ExtraMove) {
-                    stateMachine.ChangeState(HeadStateEnum.JustMoving);
-                    yield break;
-                }
                 stateMachine.ChangeState(HeadStateEnum.Return);
                 yield break;
             }
@@ -64,14 +64,11 @@ public class HeadMovingState : HeadAliveState
 
     public override void Exit()
     {
-        base.Exit();
         head.lastAttackTime = Time.time;
+        head.ChargingData.SetDefaultStat();
+        head.ChargingData.SetFinish(false);
         head.ExtraMove = false;
-    }
-
-    // 아직 구현되지 않은 함수
-    private bool JustMovingCheck() {
-        return false;
+        base.Exit();
     }
 
     private float EaseOutQuart(float t) {

@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed1c54c3ff05407428b5c71235d54df3, type: 3}
-  m_Name: FlameShoot
+  m_Script: {fileID: 11500000, guid: 202c1c3d030c77540b380072c435a2b6, type: 3}
+  m_Name: ChargingEvolutionItem
   m_EditorClassIdentifier: 
-  type: 0
-  Cooldown: 10
-  FlamePrefab: {fileID: 3645931680854498775, guid: a02fb811bcecf9f4b84bce7cc917ca30, type: 3}
-  AppliedSpeedPercent: 100
+  evolutionName: Charging
+  effectSO: {fileID: 11400000, guid: 11a265ec8f761d74b8749159fe9b3dd5, type: 2}
+  nextEvolutionItemList: []
